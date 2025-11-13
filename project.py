@@ -27,6 +27,12 @@ cursor = conn.cursor()
 #confirmation message displayed to the IDE
 print("connected to database")
 
+def launch_dashboard():
+    for widget in app.winfo_children():
+        widget.destroy()
+        
+
+
 #function to register a new user
 def register():
     for widget in app.winfo_children():
@@ -62,7 +68,22 @@ def register():
     register_new_user = tk.Button(app, text = "register", width = 30, command = update_credentials)
     register_new_user.place(x = 600, y = 300)
 
+def login(): 
+    username = username_entry.get()
+    password = password_entry.get()
 
+    query = "select * from credentials where username = ? and password = ?"
+    cursor.execute(query,(username, password))
+    outcome = cursor.fetchone()
+    conn.commit()
+
+    if outcome:
+        launch_homepage(username)
+
+    else:
+        error_message = tk.Label(app, text = "incorrect username or password")
+        error_message.place(x = 600, y = 400)
+                           
 
 #creating the login screen for the app
 welcome_label = tk.Label(app, text = "Welcome to the car quiz app!")
@@ -80,7 +101,7 @@ password_label.place(x = 600, y = 425)
 password_entry = tk.Entry(app, width = 30)
 password_entry.place(x = 600, y = 450)
 
-login_button = tk.Button(app, text = "Log in", width = 10)
+login_button = tk.Button(app, text = "Log in", width = 10, command = login)
 login_button.place(x = 650, y = 500)
 
 register_button = tk.Button(app, text = "new to the quiz? Click here to register", width = 40, command = register)
