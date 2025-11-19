@@ -27,10 +27,46 @@ cursor = conn.cursor()
 #confirmation message displayed to the IDE
 print("connected to database")
 
-def launch_dashboard():
+#this is what the user will see after successfully logging in
+def launch_dashboard(username):
     for widget in app.winfo_children():
         widget.destroy()
+
+    #user will choose what type of quiz they want to play
+    def quiz_type():
+        for widget in app.winfo_children():
+            widget.destroy()
+
+        info = tk.Label(app, text = "Choose your quiz type")
+        info.place(x = 650, y = 150)
+
+        engine = tk.Button(app, text = "BMW engines")
+        engine.place(x = 300, y = 350)
+        engine_highscore = tk.Label(app, text = "high score")
+        engine_highscore.place(x = 300, y = 450)
+
+        models = tk.Button(app, text = "Car models")
+        models.place(x = 400, y = 350)
+        models_highscore = tk.Label(app, text = "high score")
+        models_highscore.place(x = 400, y = 450)
+
+        car_parts = tk.Button(app, text = "Car parts")
+        car_parts.place(x = 500, y = 350)
+        car_parts_highscore = tk.Label(app, text = "high score")
+        car_parts_highscore.place(x = 500, y = 450)      
+
+        car_logos = tk.Button(app, text = "Car Logos")
+        car_logos.place(x = 600, y = 350)
+        car_logos_highscore = tk.Label(app, text = "high score")
+        car_logos_highscore.place(x = 600, y = 450)
+
+     
         
+    welcome_message = tk.Label(app, text = f"welcome {username}")
+    welcome_message.place(x = 550, y = 60)
+
+    play = tk.Button(app, text = "play quiz", command = quiz_type)
+    play.place(x = 550, y = 200)
 
 
 #function to register a new user
@@ -38,6 +74,7 @@ def register():
     for widget in app.winfo_children():
         widget.destroy()
 
+    #saving the users credentials to the database
     def update_credentials():
         try:
             username = new_username_entry.get()
@@ -68,6 +105,7 @@ def register():
     register_new_user = tk.Button(app, text = "register", width = 30, command = update_credentials)
     register_new_user.place(x = 600, y = 300)
 
+#log in function 
 def login(): 
     username = username_entry.get()
     password = password_entry.get()
@@ -78,7 +116,7 @@ def login():
     conn.commit()
 
     if outcome:
-        launch_homepage(username)
+        launch_dashboard(username)
 
     else:
         error_message = tk.Label(app, text = "incorrect username or password")
