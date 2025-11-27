@@ -5,7 +5,11 @@ import customtkinter as ctk
 from tkinter import PhotoImage
 from PIL import Image, ImageTk
 import pyodbc
+import google.generativeai as genai
 
+#defining the API key and and ai model
+genai.configure(api_key="AIzaSyAO3xpll0Z4uGtc3NLRhoMLJZIeX60WtII")
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 #creating the window
 app = ttk.Window()
@@ -86,6 +90,28 @@ def launch_dashboard(username):
                 option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(question_2))
                 option5.place(x = 1000, y = 550)
 
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("e92_318i.jpeg")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
+
             def question_2():
                 for widget in app.winfo_children():
                     widget.destroy()
@@ -115,6 +141,28 @@ def launch_dashboard(username):
 
                 option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(question_3))
                 option5.place(x = 1000, y = 550)
+
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("e46.jpg")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
 
             def question_3():
                 for widget in app.winfo_children():
@@ -146,6 +194,28 @@ def launch_dashboard(username):
                 option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(question_4))
                 option5.place(x = 1000, y = 550)
 
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("audi_a5.JPG")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
+
             def question_4():
                 for widget in app.winfo_children():
                     widget.destroy()
@@ -175,6 +245,28 @@ def launch_dashboard(username):
 
                 option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(question_5))
                 option5.place(x = 1000, y = 550)
+
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("r34.jpeg")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
 
             
             def question_5():
@@ -207,6 +299,28 @@ def launch_dashboard(username):
                 option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(question_6))
                 option5.place(x = 1000, y = 550)
 
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("supra.jpeg")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
+
             def question_6():
                 for widget in app.winfo_children():
                     widget.destroy()
@@ -215,6 +329,59 @@ def launch_dashboard(username):
                 question.place(x = 700, y = 40)
 
                 range_rover = Image.open("range.JPG")
+                range_rover = range_rover.resize((321, 300))
+                icon = ImageTk.PhotoImage(range_rover)
+
+                image = tk.Label(app, image = icon)
+                image.image = icon
+                image.place(x = 625, y = 100)
+
+                option1 = tk.Button(app, text = "FERRARI 458", command = lambda: incorrect(question_7))
+                option1.place(x = 200, y = 550)
+
+                option2 = tk.Button(app, text = "RANGE ROVER", command = lambda: correct(question_7))
+                option2.place(x = 400, y = 550)
+
+                option3 = tk.Button(app, text = "BMW M5", command = lambda: incorrect(question_7))
+                option3.place(x = 600, y = 550)
+
+                option4 = tk.Button(app, text = "MERCEDES C CLASS", command = lambda: incorrect(question_7))
+                option4.place(x = 800, y = 550)
+
+                option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(question_7))
+                option5.place(x = 1000, y = 550)
+
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("range.JPG")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
+
+
+            def question_7():
+                for widget in app.winfo_children():
+                    widget.destroy()
+
+                question = tk.Label(app, text = "What car is this?")
+                question.place(x = 700, y = 40)
+
+                range_rover = Image.open("G20.JPG")
                 range_rover = range_rover.resize((321, 300))
                 icon = ImageTk.PhotoImage(range_rover)
 
@@ -236,6 +403,28 @@ def launch_dashboard(username):
 
                 option5 = tk.Button(app, text = "HONDA INTEGRA DC5", command = lambda: incorrect(final_screen))
                 option5.place(x = 1000, y = 550)
+
+                def get_hint():
+                    def get_car_hint(image_path):
+                        with open(image_path, "rb") as img:
+                            image_bytes = img.read()
+
+                        response = model.generate_content(
+                            [
+                                "Give me a short hint about what car this is. Never reveal the exact car.",
+                                {"mime_type": "image/jpeg", "data": image_bytes}
+                            ]
+                        )
+
+                        return response.text
+                    hint = get_car_hint("G20.JPG")
+                    
+                    hint_label = tk.Label(app, text = f"HINT: {hint}")
+                    hint_label.place(x = 400, y = 650)
+                    
+                
+                hint = tk.Button(app, text = "HINT", command = get_hint)
+                hint.place(x = 1200, y = 100)
 
             def final_screen():
                 for widget in app.winfo_children():
